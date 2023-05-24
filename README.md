@@ -20,8 +20,6 @@ This project develops an API for a task management system where users can overse
 
 # Technology resources
 
-- HTML5
-- CSS3
 - JavaScript
 - Node.js 18.14.2
 - Express 4.18.2
@@ -51,7 +49,6 @@ This project develops an API for a task management system where users can overse
     A task can have the following fields:
     
     {
-
         "title": "Example of a title",
 
         "description": "Description of the task",
@@ -59,7 +56,6 @@ This project develops an API for a task management system where users can overse
         "completed": false,
 
         "dueDate": "2023-05-25T00:00:00.000Z"
-        
     }
     
     The field ***title*** is required.
