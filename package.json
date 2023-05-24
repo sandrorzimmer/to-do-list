@@ -1,0 +1,24 @@
+{
+    "name": "001-to-do-list",
+    "version": "1.0.0",
+    "description": "This project develops a task management system where users can oversee their daily chores list.",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon server.js"
+    },
+    "keywords": [
+        "node.js"
+    ],
+    "author": "Sandro Zimmer",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "mongoose": "^7.2.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.22"
+    }
+}
