@@ -45,9 +45,18 @@ This project develops an API for a task management system where users can overse
     Creates a new task. Expects the task data to be included in the request body.
     
     If the operation is successful, returns a JSON response with the newly created task.
+
+    The field ***title*** is required.
+
+    The fields ***description*** and ***dueDate*** are optional.
+
+    The field ***completed*** is set to *false* by default.
+
+    There is also a field ***createdAt***, which is automatically populated with the current date and time.
+
+    The field ***_id*** is also automatically populated.
     
     A task can have the following fields:
-    
     
 ```
     {
@@ -60,17 +69,6 @@ This project develops an API for a task management system where users can overse
         "dueDate": "2023-05-25T00:00:00.000Z"
     }
 ```
-- 
-
-    The field ***title*** is required.
-
-    The fields ***description*** and ***dueDate*** are optional.
-
-    The field ***completed*** is set to *false* by default.
-
-    There is also a field ***createdAt***, which is automatically populated with the current date and time.
-
-    The field ***_id*** is also automatically populated.
     
 - **PUT - /tasks/:id**
     
