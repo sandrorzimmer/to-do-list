@@ -82,12 +82,14 @@ class TaskController {
 }
 
 function searchHandling(params) {
-    const { title, description, minDueDate, maxDueDate } = params;
+    const { title, description, completed, minDueDate, maxDueDate } = params;
 
     const search = {};
 
     if (title) search.title = { $regex: title, $options: "i" };
     if (description) search.description = { $regex: description, $options: "i" };
+
+    if (completed) search.completed = completed;
 
     if (minDueDate || maxDueDate) search.dueDate = {};
 
