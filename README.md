@@ -20,7 +20,7 @@ This project develops an API for a task management system where users can overse
 
 # Technology resources
 
-- JavaScript
+- JavaScript ES6
 - Node.js 18.14.2
 - Express 4.18.2
 - Mongoose 7.2.0

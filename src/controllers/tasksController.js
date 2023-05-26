@@ -1,16 +1,17 @@
+import NotFound from "../errors/NotFound.js";
 import tasks from "../models/Task.js";
 
 class TaskController {
-    static showTasks = async (req, res) => {
+    static showTasks = async (req, res, next) => {
         try {
             const tasksResult = await tasks.find({});
             res.status(200).json(tasksResult);
-        } catch (err) {
-            res.status(500).json({ message: `${err.message} - Server error` });
+        } catch (error) {
+            next(error);
         }
     }
 
-    static showTaskById = async (req, res) => {
+    static showTaskById = async (req, res, next) => {
         try {
             const taskId = req.params.id;
 
@@ -18,25 +19,25 @@ class TaskController {
             if (taskResult) {
                 res.status(200).json(taskResult);
             } else {
-                res.status(400).json({ message: `Task Id ${taskId} not found.` })
+                next(new NotFound("Task ID not found."));
             }
-        } catch (err) {
-            res.status(500).json({ message: `${err.message} - There was an error while looking for task.` });
+        } catch (error) {
+            next(error);
         }
     }
 
-    static addTask = async (req, res) => {
+    static addTask = async (req, res, next) => {
         try {
             const task = new tasks(req.body);
 
             const taskResult = await task.save();
             res.status(201).json(taskResult);
-        } catch (err) {
-            res.status(500).json({ message: `${err.message} - Failed to add task.` })
+        } catch (error) {
+            next(error);
         }
     }
 
-    static updateTask = async (req, res) => {
+    static updateTask = async (req, res, next) => {
         try {
             const taskId = req.params.id;
             const updatedTask = req.body;
@@ -45,22 +46,25 @@ class TaskController {
             if (taskResult) {
                 res.status(200).json(taskResult);
             } else {
-                res.status(404).json({ message: `Task Id ${taskId} not found.` })
+                next(new NotFound("Task ID not found."));
             }
-        } catch (err) {
-            res.status(500).json({ message: `${err.message} - There was an error while trying to update task.` })
+        } catch (error) {
+            next(error);
         }
     }
 
-    static deleteTask = async (req, res) => {
+    static deleteTask = async (req, res, next) => {
         try {
             const taskId = req.params.id;
+            const taskResult = await tasks.findByIdAndDelete({ _id: taskId });
 
-            await tasks.findOneAndDelete({ _id: taskId })
-
-            res.status(200).json({ message: `Task Id ${taskId} deleted successfuly.` })
-        } catch (err) {
-            res.status(500).json({ message: `${err.message} - There was an error while trying to delete task.` });
+            if (taskResult !== null) {
+                res.status(200).json({ message: `Task Id ${taskId} deleted successfuly.` })
+            } else {
+                next(new NotFound("Task ID not found."));
+            }
+        } catch (error) {
+            next(error);
         }
     }
 }
