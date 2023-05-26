@@ -70,12 +70,7 @@ class TaskController {
 
     static showTasksByFilter = async (req, res, next) => {
         try {
-            const { title, description } = req.query;
-
-            const search = {};
-
-            if (title) search.title = { $regex: title, $options: "i" };
-            if (description) search.description = { $regex: description, $options: "i" };
+            const search = searchHandling(req.query);
 
             const tasksResult = await tasks.find(search);
 
@@ -84,6 +79,22 @@ class TaskController {
             next(error);
         }
     }
+}
+
+function searchHandling(params) {
+    const { title, description, minDueDate, maxDueDate } = params;
+
+    const search = {};
+
+    if (title) search.title = { $regex: title, $options: "i" };
+    if (description) search.description = { $regex: description, $options: "i" };
+
+    if (minDueDate || maxDueDate) search.dueDate = {};
+
+    if (minDueDate) search.dueDate.$gte = new Date(minDueDate);
+    if (maxDueDate) search.dueDate.$lte = new Date(maxDueDate);
+
+    return search;
 }
 
 export default TaskController;
