@@ -67,6 +67,23 @@ class TaskController {
             next(error);
         }
     }
+
+    static showTasksByFilter = async (req, res, next) => {
+        try {
+            const { title, description } = req.query;
+
+            const search = {};
+
+            if (title) search.title = { $regex: title, $options: "i" };
+            if (description) search.description = { $regex: description, $options: "i" };
+
+            const tasksResult = await tasks.find(search);
+
+            res.status(200).json(tasksResult);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 export default TaskController;
