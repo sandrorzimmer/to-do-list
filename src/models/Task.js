@@ -6,12 +6,30 @@ const taskSchema = new mongoose.Schema(
         title:
         {
             type: String,
-            required: [true, "Title is required."]
+            required: [true, "Title is required."],
+            validate: {
+                validator: function (title) {
+                    return title.trim().length > 0
+                },
+                message: "Title cannot be blank."
+            }
         },
         description: { type: String },
         completed: { type: Boolean, default: false },
-        createdAt: { type: Date, default: Date.now },
-        dueDate: { type: Date }
+        createdAt: {
+            type: Date,
+            default: new Date()
+        },
+        dueDate: {
+            type: Date,
+            required: false,
+            validate: {
+                validator: function (dueDate) {
+                    return dueDate >= new Date();
+                },
+                message: "Due date must be equal or higher than current date."
+            }
+        }
     }
 );
 

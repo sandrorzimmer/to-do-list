@@ -1,5 +1,5 @@
 import NotFound from "../errors/NotFound.js";
-import tasks from "../models/Task.js";
+import { tasks } from "../models/index.js";
 
 class TaskController {
     static showTasks = async (req, res, next) => {
