@@ -4,8 +4,11 @@ import { tasks } from "../models/index.js";
 class TaskController {
     static showTasks = async (req, res, next) => {
         try {
-            const tasksResult = await tasks.find({});
-            res.status(200).json(tasksResult);
+            const searchTasks = tasks.find();
+
+            req.result = searchTasks;
+
+            next();
         } catch (error) {
             next(error);
         }
@@ -72,9 +75,16 @@ class TaskController {
         try {
             const search = searchHandling(req.query);
 
-            const tasksResult = await tasks.find(search);
+            if (search !== null) {
+                const tasksResult = tasks
+                    .find(search);
 
-            res.status(200).json(tasksResult);
+                req.result = tasksResult;
+
+                next();
+            } else {
+                res.status(200).send([]);
+            }
         } catch (error) {
             next(error);
         }
