@@ -1,4 +1,4 @@
-import BadRequest from "../errors/badRequest.js";
+import BadRequest from "../errors/BadRequest.js";
 
 async function paginate(req, res, next) {
     try {
