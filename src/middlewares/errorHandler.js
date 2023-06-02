@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import BaseError from "../errors/BaseError.js";
-import BadRequest from "../errors/badRequest.js";
+import BadRequest from "../errors/BadRequest.js";
 import ValidationError from "../errors/validationError.js";
 
 

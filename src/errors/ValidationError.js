@@ -1,4 +1,4 @@
-import BadRequest from "./badRequest.js";
+import BadRequest from "./BadRequest.js";
 
 
 class ValidationError extends BadRequest {
